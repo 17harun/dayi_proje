@@ -10,6 +10,7 @@ body {
     line-height: 1.6;
     color: #333;
     background-color: #f9f9f9;
+    background: linear-gradient(to bottom, #f9f9f9 0%, #f9f9f9 100%);
 }
 
 .container {
@@ -114,8 +115,8 @@ header nav {
     align-items: center;
 }
 
-/* Desktop'ta tüm butonlar yan yana */
-.nav-top, .nav-bottom {
+/* Sabit navigasyon düzeni */
+.nav-items {
     display: flex;
     gap: 20px;
     align-items: center;
@@ -175,7 +176,7 @@ header nav {
         gap: 10px;
     }
     
-    .nav-top, .nav-bottom {
+    .nav-items {
         gap: 10px;
     }
     
@@ -188,6 +189,66 @@ header nav {
         padding: 6px 12px;
         font-size: 12px;
     }
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-emblem {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    overflow: visible;
+}
+
+.emblem-circle {
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 6px solid #FFD700;
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+}
+
+
+
+.emblem-text {
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 900;
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 2px;
+    z-index: 4;
+    position: relative;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+    -webkit-text-stroke: 1px #ffffff;
+}
+
+
+
+
+
+.emblem-arc {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: none; /* Eski halkayı gizle */
+}
+
+.emblem-arc::after {
+    display: none; /* Eski halka stilini gizle */
 }
 
 .logo h1 {
@@ -203,11 +264,11 @@ header nav {
         0 0 10px rgba(255, 107, 53, 0.5);
 }
 
-.logo h1::before {
-    content: '🌙';
+.logo-hilal {
     font-size: 40px;
     animation: logoHilalGlow 4s ease-in-out infinite alternate;
     filter: drop-shadow(0 0 15px rgba(255, 193, 7, 0.8));
+    margin-left: 10px;
 }
 
 .logo h1::after {
@@ -508,6 +569,21 @@ header nav {
     .hero-title::before,
     .hero-title::after {
         display: none;
+    }
+    
+    .logo-emblem {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .emblem-text {
+        font-size: 20px;
+        letter-spacing: 1px;
+    }
+    
+    .logo-hilal {
+        font-size: 24px;
+        margin-left: 8px;
     }
     
     .logo h1::before {
@@ -1066,6 +1142,8 @@ footer {
     background: #2c3e50;
     color: white;
     padding: 60px 0 20px;
+    position: relative;
+    z-index: 1008;
 }
 
 .footer-content {
@@ -1339,6 +1417,7 @@ html:focus-within {
 
 body {
     background: var(--bg);
+    background-color: #f9f9f9;
     color: var(--text);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-size: 16px;
@@ -1347,12 +1426,12 @@ body {
 
 /* Bölüm yapısı ve yardımcı sınıflar */
 .section {
-    padding: 80px 0;
+    padding: 120px 0;
 }
 .section--white { background: var(--surface); }
 .section--comfort { background: var(--comfort); }
 .section--muted { background: var(--surface-2); }
-.with-header-offset { margin-top: 120px; }
+.with-header-offset { margin-top: 0px; }
 
 .section-title {
     font-size: 36px;
@@ -1471,6 +1550,7 @@ body {
     gap: 40px;
     justify-content: center;
     flex-wrap: wrap;
+    margin-top: 120px;
 }
 
 .trust-item {
@@ -1757,12 +1837,73 @@ footer {
     .value-card, .service-card { padding: 30px 20px; }
 }
 
+/* ==================== YUKARI ÇIKMA BUTONU ==================== */
+.scroll-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.3),
+        0 4px 15px rgba(255, 107, 53, 0.4);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+}
+
+.scroll-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.scroll-to-top:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 
+        0 12px 35px rgba(0, 0, 0, 0.4),
+        0 6px 20px rgba(255, 107, 53, 0.6);
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+}
+
+.scroll-to-top:active {
+    transform: translateY(-2px) scale(1.05);
+}
+
+.scroll-to-top i {
+    transition: transform 0.3s ease;
+}
+
+.scroll-to-top:hover i {
+    transform: translateY(-2px);
+}
+
+/* Mobil cihazlar için */
+@media (max-width: 768px) {
+    .scroll-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 18px;
+    }
+}
+
 /* ==================== STICKY CALL BAR ==================== */
 .sticky-call-bar {
     position: fixed;
     top: 120px;
-    left: 0;
-    right: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
     background: linear-gradient(135deg, 
         rgba(0, 0, 0, 0.95) 0%, 
         rgba(40, 40, 40, 0.9) 25%, 
@@ -1770,20 +1911,30 @@ footer {
         rgba(40, 40, 40, 0.9) 75%, 
         rgba(0, 0, 0, 0.95) 100%);
     backdrop-filter: blur(20px) saturate(150%);
-    border-bottom: 3px solid;
-    border-image: linear-gradient(90deg, 
+    border: 3px solid transparent;
+    background: linear-gradient(135deg, 
+        rgba(0, 0, 0, 0.95) 0%, 
+        rgba(40, 40, 40, 0.9) 25%, 
+        rgba(60, 60, 60, 0.85) 50%, 
+        rgba(40, 40, 40, 0.9) 75%, 
+        rgba(0, 0, 0, 0.95) 100%) padding-box,
+        linear-gradient(45deg, 
         rgba(255, 107, 53, 0.8), 
         rgba(255, 140, 66, 0.8), 
         rgba(255, 193, 7, 0.8), 
-        rgba(255, 107, 53, 0.8)) 1;
+        rgba(255, 107, 53, 0.8),
+        rgba(255, 140, 66, 0.8),
+        rgba(255, 193, 7, 0.8),
+        rgba(255, 107, 53, 0.8)) border-box;
     box-shadow: 
         0 8px 32px rgba(0, 0, 0, 0.6),
         0 4px 16px rgba(255, 107, 53, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    z-index: 1005;
+    z-index: 1004;
     animation: slideDown 0.6s ease-out;
     overflow: visible;
     transition: top 0.3s ease;
+    border-radius: 50px;
 }
 
 .sticky-call-bar::before {
@@ -1804,15 +1955,20 @@ footer {
 }
 
 .sticky-call-bar::after {
-    content: '🔥';
+    content: '';
     position: absolute;
-    top: 50%;
-    left: 25px;
-    transform: translateY(-50%);
-    font-size: 24px;
-    animation: fireGlow 3s ease-in-out infinite;
-    filter: drop-shadow(0 0 10px rgba(255, 107, 53, 0.6));
-    z-index: 3;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        #00BFFF 25%, 
+        #FFD700 50%, 
+        #00BFFF 75%, 
+        transparent 100%);
+    z-index: 1;
+    animation: shimmer 2s ease-in-out infinite;
 }
 
 .sticky-call-bar::before {
@@ -1832,115 +1988,210 @@ footer {
     animation: shimmer 4s ease-in-out infinite;
 }
 
-/* Sol taraftaki doğalgaz peteği */
-.sticky-call-bar .radiator-left {
-    position: absolute;
-    top: 50%;
-    left: 25px;
-    transform: translateY(-50%);
-    width: 120px;
-    height: 40px;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100"><defs><linearGradient id="radiatorGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23FF4500;stop-opacity:0.9"/><stop offset="50%" style="stop-color:%23FF6347;stop-opacity:0.8"/><stop offset="100%" style="stop-color:%23FF4500;stop-opacity:0.9"/></linearGradient></defs><rect x="40" y="30" width="120" height="40" rx="6" fill="%23E0E0E0" opacity="0.8"/><rect x="45" y="35" width="110" height="30" rx="4" fill="%23F5F5F5" opacity="0.9"/><rect x="50" y="40" width="15" height="20" rx="3" fill="url(%23radiatorGradient)"/><rect x="75" y="40" width="15" height="20" rx="3" fill="url(%23radiatorGradient)"/><rect x="100" y="40" width="15" height="20" rx="3" fill="url(%23radiatorGradient)"/><rect x="125" y="40" width="15" height="20" rx="3" fill="url(%23radiatorGradient)"/><text x="100" y="55" text-anchor="middle" fill="%23FF6B35" font-size="8" font-weight="bold">PETEEK</text></svg>') no-repeat center;
-    background-size: contain;
-    filter: drop-shadow(0 0 8px rgba(255, 69, 0, 0.4));
-    animation: radiatorFloatLeft 4s ease-in-out infinite;
-    z-index: 3;
-}
+/* Elips şeklindeki renkli daireler kaldırıldı */
 
-/* Sağ taraftaki doğalgaz peteği */
-.sticky-call-bar .radiator-right {
-    position: absolute;
-    top: 50%;
-    right: 25px;
-    transform: translateY(-50%);
-    width: 120px;
-    height: 40px;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100"><defs><linearGradient id="radiatorGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23FF4500;stop-opacity:0.9"/><stop offset="50%" style="stop-color:%23FF6347;stop-opacity:0.8"/><stop offset="100%" style="stop-color:%23FF4500;stop-opacity:0.9"/></linearGradient></defs><rect x="40" y="30" width="120" height="40" rx="6" fill="%23E0E0E0" opacity="0.8"/><rect x="45" y="35" width="110" height="30" rx="4" fill="%23F5F5F5" opacity="0.9"/><rect x="50" y="40" width="15" height="20" rx="3" fill="url(%23radiatorGradient)"/><rect x="75" y="40" width="15" height="20" rx="3" fill="url(%23radiatorGradient)"/><rect x="100" y="40" width="15" height="20" rx="3" fill="url(%23radiatorGradient)"/><rect x="125" y="40" width="15" height="20" rx="3" fill="url(%23radiatorGradient)"/><text x="100" y="55" text-anchor="middle" fill="%23FF6B35" font-size="8" font-weight="bold">PETEEK</text></svg>') no-repeat center;
-    background-size: contain;
-    filter: drop-shadow(0 0 8px rgba(255, 69, 0, 0.4));
-    animation: radiatorFloatRight 4s ease-in-out infinite;
-    z-index: 3;
-}
+/* Çapraz bağlantı çizgileri kaldırıldı */
 
-/* Sol petekten telefon butonuna giden doğalgaz borusu */
-.sticky-call-bar .gas-pipe-left {
-    position: absolute;
-    top: 50%;
-    left: 150px;
-    transform: translateY(-50%);
-    width: 80px;
-    height: 6px;
-    background: linear-gradient(90deg, 
-        #FFD700 0%, 
-        #FFA500 50%, 
-        #FFD700 100%);
-    border-radius: 3px;
-    box-shadow: 0 0 6px rgba(255, 215, 0, 0.6);
-    animation: gasFlow 2s ease-in-out infinite;
+/* Kullanılmayan animasyonlar kaldırıldı */
+
+.sticky-call-bar .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 18px 0;
+    position: relative;
     z-index: 2;
-}
-
-/* Sağ petekten WhatsApp butonuna giden doğalgaz borusu */
-.sticky-call-bar .gas-pipe-right {
-    position: absolute;
-    top: 50%;
-    right: 150px;
-    transform: translateY(-50%);
-    width: 80px;
-    height: 6px;
-    background: linear-gradient(90deg, 
-        #FFD700 0%, 
-        #FFA500 50%, 
-        #FFD700 100%);
-    border-radius: 3px;
-    box-shadow: 0 0 6px rgba(255, 215, 0, 0.6);
-    animation: gasFlow 2s ease-in-out infinite;
-    z-index: 2;
-}
-
-@keyframes radiatorFloatLeft {
-    0%, 100% {
-        transform: translateY(-50%) scale(1) translateX(0);
-    }
-    50% {
-        transform: translateY(-50%) scale(1.05) translateX(5px);
-    }
-}
-
-@keyframes radiatorFloatRight {
-    0%, 100% {
-        transform: translateY(-50%) scale(1) translateX(0);
-    }
-    50% {
-        transform: translateY(-50%) scale(1.05) translateX(-5px);
-    }
-}
-
-@keyframes gasFlow {
-    0%, 100% {
-        opacity: 0.8;
-        box-shadow: 0 0 6px rgba(255, 215, 0, 0.6);
-    }
-    50% {
-        opacity: 1;
-        box-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
-    }
 }
 
 .sticky-call-bar .call-actions {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px;
-    padding: 18px 0;
+    gap: 25px;
+}
+
+/* ==================== COMPANY INFO BAR ==================== */
+.company-info-bar {
+    background: linear-gradient(135deg, 
+        rgba(0, 0, 0, 0.95) 0%, 
+        rgba(40, 40, 40, 0.9) 25%, 
+        rgba(60, 60, 60, 0.85) 50%, 
+        rgba(40, 40, 40, 0.9) 75%, 
+        rgba(0, 0, 0, 0.95) 100%);
+    backdrop-filter: blur(20px) saturate(150%);
+    border: 3px solid transparent;
+    background: linear-gradient(135deg, 
+        rgba(0, 0, 0, 0.95) 0%, 
+        rgba(40, 40, 40, 0.9) 25%, 
+        rgba(60, 60, 60, 0.85) 50%, 
+        rgba(40, 40, 40, 0.9) 75%, 
+        rgba(0, 0, 0, 0.95) 100%) padding-box,
+        linear-gradient(45deg, 
+        rgba(255, 107, 53, 0.8), 
+        rgba(255, 140, 66, 0.8), 
+        rgba(255, 193, 7, 0.8), 
+        rgba(255, 107, 53, 0.8),
+        rgba(255, 140, 66, 0.8),
+        rgba(255, 193, 7, 0.8),
+        rgba(255, 107, 53, 0.8)) border-box;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.6),
+        0 4px 16px rgba(255, 107, 53, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    margin: 30px 0 60px 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.company-info-bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        #FF6B35 20%, 
+        #FF8C42 40%, 
+        #FFD700 60%, 
+        #FF6B35 80%, 
+        transparent 100%);
+    animation: shimmer 4s ease-in-out infinite;
+}
+
+.company-info-bar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 50px;
     position: relative;
     z-index: 2;
+}
+
+.company-info-bar .company-info {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.company-info-bar .company-logo h3 {
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.company-info-bar .company-logo h3 span {
+    color: #FF6B35;
+}
+
+.company-info-bar .company-tagline {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 15px;
+    margin: 0;
+    font-weight: 500;
+    line-height: 1.3;
+    max-width: 350px;
+}
+
+.company-info-bar .company-badges {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.company-info-bar .company-badges .badge {
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.company-info-bar .company-badges .badge.meb {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+}
+
+.company-info-bar .company-badges .badge.myk {
+    background: linear-gradient(135deg, #2196F3, #1976D2);
+    color: white;
+}
+
+.company-info-bar .company-badges .badge.certified {
+    background: linear-gradient(135deg, #FF6B35, #E55A2B);
+    color: white;
+}
+
+.company-info-bar .company-owner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.company-info-bar .experience-badge {
+    background: linear-gradient(135deg, #FF6B35, #E55A2B);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+}
+
+.company-info-bar .experience-badge .years {
+    display: block;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.company-info-bar .experience-badge .label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+}
+
+.company-info-bar .owner-info {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    margin: 0;
+    font-weight: 500;
+}
+
+.company-info-bar .call-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    position: relative;
+    z-index: 2;
+}
+
+.company-info-bar .about-content {
+    background: var(--comfort);
+    margin-top: 0;
+    padding: 0 0 60px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.company-info-bar .about-content .section-title {
+    margin: 0 0 40px 0;
+    text-align: center;
 }
 
 /* Sticky call bar moves to top when header is hidden */
 .sticky-call-bar.bar-top {
     top: 0 !important;
-    z-index: 1007;
+    z-index: 1004;
     transition: top 0.3s ease;
     overflow: visible;
     visibility: visible !important;
@@ -1967,7 +2218,7 @@ footer {
     box-shadow: 
         0 6px 20px rgba(0, 0, 0, 0.3),
         0 3px 10px rgba(255, 107, 53, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    border: 4px solid rgba(255, 255, 255, 0.4);
     background: linear-gradient(135deg, 
         rgba(0, 0, 0, 0.8) 0%, 
         rgba(40, 40, 40, 0.8) 100%);
@@ -2014,8 +2265,13 @@ footer {
     background: linear-gradient(135deg, 
         rgba(0, 123, 255, 0.9) 0%, 
         rgba(0, 150, 255, 0.9) 100%);
-    border-color: rgba(0, 123, 255, 0.4);
+    border: 5px solid #007BFF;
     position: relative;
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.4),
+        0 4px 15px rgba(0, 123, 255, 0.6),
+        inset 0 2px 0 rgba(255, 255, 255, 0.4),
+        0 0 20px rgba(0, 123, 255, 0.3);
 }
 
 .call-btn--phone::before {
@@ -2046,9 +2302,10 @@ footer {
         rgba(0, 123, 255, 0.95) 100%);
     transform: translateY(-6px) scale(1.05);
     box-shadow: 
-        0 12px 30px rgba(0, 123, 255, 0.4),
-        0 6px 20px rgba(0, 0, 0, 0.3);
-    border-color: rgba(0, 123, 255, 0.6);
+        0 15px 35px rgba(0, 123, 255, 0.6),
+        0 8px 25px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(0, 123, 255, 0.5);
+    border: 5px solid #0056CC;
 }
 
 /* WhatsApp Button */
@@ -2056,8 +2313,13 @@ footer {
     background: linear-gradient(135deg, 
         rgba(37, 211, 102, 0.9) 0%, 
         rgba(37, 211, 102, 0.8) 100%);
-    border-color: rgba(37, 211, 102, 0.4);
+    border: 5px solid #25D366;
     position: relative;
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.4),
+        0 4px 15px rgba(37, 211, 102, 0.6),
+        inset 0 2px 0 rgba(255, 255, 255, 0.4),
+        0 0 20px rgba(37, 211, 102, 0.3);
 }
 
 .call-btn--whatsapp::before {
@@ -2079,9 +2341,10 @@ footer {
         rgba(37, 211, 102, 0.9) 100%);
     transform: translateY(-6px) scale(1.05);
     box-shadow: 
-        0 12px 30px rgba(37, 211, 102, 0.4),
-        0 6px 20px rgba(0, 0, 0, 0.3);
-    border-color: rgba(37, 211, 102, 0.6);
+        0 15px 35px rgba(37, 211, 102, 0.6),
+        0 8px 25px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(37, 211, 102, 0.5);
+    border: 5px solid #128C7E;
 }
 
 /* Button Icons */
@@ -3236,7 +3499,7 @@ footer {
 /* Contact Hero Section */
 .contact-hero-section {
     text-align: center;
-    padding: 120px 0 80px;
+    padding: 180px 0 80px;
     background: linear-gradient(135deg, var(--comfort) 0%, #fff 100%);
     position: relative;
 }
@@ -4101,24 +4364,37 @@ footer {
 
 /* ==================== RESPONSIVE STICKY CALL BAR ==================== */
 @media (max-width: 768px) {
-    .sticky-call-bar {
-        top: 130px;
-        overflow: visible;
-    }
-    
-    .sticky-call-bar.bar-top {
-        top: 0 !important;
-        z-index: 1007;
-        overflow: visible;
-    }
-    
-    .sticky-call-bar::after {
-        display: none;
-    }
-    
-    .sticky-call-bar .call-actions {
+    .company-info-bar .container {
+        flex-direction: column;
         gap: 25px;
-        padding: 20px 0;
+        padding: 30px 35px;
+    }
+    
+    .company-info-bar .company-info {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .company-info-bar .company-logo h3 {
+        font-size: 24px;
+    }
+    
+    .company-info-bar .company-tagline {
+        font-size: 13px;
+        max-width: 300px;
+    }
+    
+    .company-info-bar .company-badges {
+        justify-content: center;
+    }
+    
+    .company-info-bar .company-owner {
+        order: -1;
+    }
+    
+    .company-info-bar .call-actions {
+        gap: 20px;
     }
     
     .call-btn {
@@ -4140,21 +4416,40 @@ footer {
 }
 
 @media (max-width: 576px) {
-    .sticky-call-bar {
-        top: 125px;
-        overflow: visible;
-    }
-    
-    .sticky-call-bar.bar-top {
-        top: 0 !important;
-        z-index: 1007;
-        overflow: visible;
-    }
-    
-    .sticky-call-bar .call-actions {
-        flex-direction: row;
+    .company-info-bar .container {
+        padding: 25px 30px;
         gap: 20px;
-        padding: 18px 0;
+    }
+    
+    .company-info-bar .company-logo h3 {
+        font-size: 20px;
+    }
+    
+    .company-info-bar .company-tagline {
+        font-size: 12px;
+        max-width: 250px;
+    }
+    
+    .company-info-bar .company-badges .badge {
+        font-size: 10px;
+        padding: 4px 8px;
+    }
+    
+    .company-info-bar .experience-badge {
+        padding: 10px 16px;
+    }
+    
+    .company-info-bar .experience-badge .years {
+        font-size: 20px;
+    }
+    
+    .company-info-bar .experience-badge .label {
+        font-size: 10px;
+    }
+    
+    .company-info-bar .call-actions {
+        flex-direction: row;
+        gap: 15px;
     }
     
     .call-btn {
@@ -4176,20 +4471,39 @@ footer {
 }
 
 @media (max-width: 480px) {
-    .sticky-call-bar {
-        top: 120px;
-        overflow: visible;
+    .company-info-bar .container {
+        padding: 20px 25px;
+        gap: 15px;
     }
     
-    .sticky-call-bar.bar-top {
-        top: 0 !important;
-        z-index: 1007;
-        overflow: visible;
+    .company-info-bar .company-logo h3 {
+        font-size: 18px;
     }
     
-    .sticky-call-bar .call-actions {
-        gap: 18px;
-        padding: 15px 0;
+    .company-info-bar .company-tagline {
+        font-size: 11px;
+        max-width: 200px;
+    }
+    
+    .company-info-bar .company-badges .badge {
+        font-size: 9px;
+        padding: 3px 6px;
+    }
+    
+    .company-info-bar .experience-badge {
+        padding: 8px 14px;
+    }
+    
+    .company-info-bar .experience-badge .years {
+        font-size: 18px;
+    }
+    
+    .company-info-bar .experience-badge .label {
+        font-size: 9px;
+    }
+    
+    .company-info-bar .call-actions {
+        gap: 12px;
         flex-direction: row;
     }
     
@@ -5158,6 +5472,7 @@ footer {
     
     body {
         background-color: var(--bg-color);
+        background: linear-gradient(to bottom, var(--bg-color) 0%, var(--bg-color) 100%);
         color: var(--text-color);
     }
     
@@ -5255,6 +5570,7 @@ footer {
         line-height: 1.4;
         color: #000 !important;
         background: #fff !important;
+        background-color: #fff !important;
     }
     
     .container {
@@ -5307,4 +5623,568 @@ footer {
 .kombi-text-animated {
     animation: textPulse 3s ease-in-out infinite;
     filter: url(#textGlow);
+}
+
+/* ==================== HERO GRID LAYOUT ==================== */
+.hero-grid {
+    display: grid;
+    grid-template-columns: 180px 1fr 180px;
+    gap: 50px;
+    align-items: center;
+    min-height: 80vh;
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.hero-content {
+    text-align: center;
+}
+
+/* ==================== KOMBİ MARKALARI SÜTUNU ==================== */
+.hero-brands {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+    width: 100%;
+    max-width: 170px;
+}
+
+.hero-brands--left {
+    justify-self: start;
+    margin-left: 0;
+}
+
+.hero-brands--right {
+    justify-self: end;
+    margin-right: 0;
+}
+
+.brands-title {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 18px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    border-bottom: 2px solid rgba(255, 107, 53, 0.6);
+    padding-bottom: 10px;
+    line-height: 1.2;
+}
+
+.brands-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+}
+
+.brand-item {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    line-height: 1.2;
+}
+
+.brand-item:hover {
+    background: rgba(255, 107, 53, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+    border-color: rgba(255, 107, 53, 0.6);
+}
+
+/* Responsive ayarlamalar */
+@media (min-width: 1600px) {
+    .hero-grid {
+        grid-template-columns: 180px 1fr 180px;
+        gap: 80px;
+        max-width: 1600px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .hero-grid {
+        grid-template-columns: 160px 1fr 160px;
+        gap: 70px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .hero-grid {
+        grid-template-columns: 160px 1fr 160px;
+        gap: 40px;
+    }
+    
+    .hero-brands {
+        padding: 15px;
+        max-width: 150px;
+    }
+    
+    .brands-title {
+        font-size: 16px;
+    }
+    
+    .brand-item {
+        font-size: 11px;
+        padding: 6px 8px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .hero-content {
+        text-align: center;
+        order: 1;
+        grid-column: 1 / -1;
+        margin-bottom: 20px;
+    }
+    
+    .hero-brands--left {
+        order: 2;
+        justify-self: center;
+    }
+    
+    .hero-brands--right {
+        order: 3;
+        justify-self: center;
+    }
+    
+    .hero-brands {
+        padding: 15px;
+        max-width: 160px;
+    }
+    
+    .brands-title {
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+    
+    .brands-grid {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+    
+    .brand-item {
+        font-size: 11px;
+        padding: 6px 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    
+    .hero-content {
+        grid-column: 1 / -1;
+        margin-bottom: 15px;
+    }
+    
+    .hero-brands {
+        padding: 12px;
+        max-width: 140px;
+    }
+    
+    .brands-grid {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+    
+    .brand-item {
+        font-size: 10px;
+        padding: 5px 6px;
+    }
+    
+    .brands-title {
+        font-size: 14px;
+    }
+    
+    .logo-emblem {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .emblem-text {
+        font-size: 16px;
+        letter-spacing: 1px;
+    }
+    
+    .logo-hilal {
+        font-size: 20px;
+        margin-left: 6px;
+    }
+}
+
+/* ==================== HERO BADGE STİLLERİ ==================== */
+.hero-badge {
+    display: inline-block;
+    margin: 15px 0;
+    position: relative;
+}
+
+.badge-text {
+    display: inline-block;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: #ffffff;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 3px solid #000000;
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.badge-text::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, #000000 0%, #333333 50%, #000000 100%);
+    border-radius: 27px;
+    z-index: -1;
+    animation: badgeGlow 3s ease-in-out infinite alternate;
+}
+
+.badge-text::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: badgeShine 2s ease-in-out infinite;
+}
+
+@keyframes badgeGlow {
+    0% {
+        box-shadow: 
+            0 0 10px rgba(30, 60, 114, 0.5),
+            0 0 20px rgba(30, 60, 114, 0.3);
+    }
+    100% {
+        box-shadow: 
+            0 0 20px rgba(30, 60, 114, 0.8),
+            0 0 30px rgba(30, 60, 114, 0.5);
+    }
+}
+
+@keyframes badgeShine {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+.hero-badge:hover .badge-text {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 
+        0 6px 20px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Mobil uyumluluk */
+@media (max-width: 991px) {
+    .badge-text {
+        font-size: 14px;
+        padding: 10px 20px;
+        letter-spacing: 0.5px;
+    }
+}
+
+@media (max-width: 768px) {
+    .badge-text {
+        font-size: 12px;
+        padding: 8px 16px;
+        letter-spacing: 0.3px;
+    }
+}
+
+/* ==================== AMBLEM ANİMASYONLARI ==================== */
+
+/* Dönen halka - amblemdeki sarı halkanın yerine */
+.rotating-ring {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #FFD700;
+    border-radius: 50%;
+    border-bottom: none;
+    border-left: none;
+    transform: rotate(-45deg);
+    animation: rotateRing 8s linear infinite;
+    z-index: 1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Dönen halka için ek katmanlar kaldırıldı - sadece ana halka döner */
+
+@keyframes rotateRing {
+    0% {
+        transform: rotate(-45deg);
+    }
+    100% {
+        transform: rotate(315deg);
+    }
+}
+
+/* Uzay kayaları */
+.space-rocks {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.rock {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: linear-gradient(45deg, #8B4513, #A0522D);
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(255, 107, 53, 0.8);
+    animation: rockOrbit 15s linear infinite;
+}
+
+.rock-1 {
+    animation-delay: 0s;
+    animation-duration: 12s;
+}
+
+.rock-2 {
+    animation-delay: -2s;
+    animation-duration: 15s;
+}
+
+.rock-3 {
+    animation-delay: -4s;
+    animation-duration: 18s;
+}
+
+.rock-4 {
+    animation-delay: -6s;
+    animation-duration: 14s;
+}
+
+.rock-5 {
+    animation-delay: -8s;
+    animation-duration: 16s;
+}
+
+.rock-6 {
+    animation-delay: -10s;
+    animation-duration: 13s;
+}
+
+@keyframes rockOrbit {
+    0% {
+        transform: translate(60px, 40px) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    40% {
+        transform: translate(40px, 0px) rotate(144deg);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(0px, 40px) rotate(180deg);
+        opacity: 0.8;
+    }
+    60% {
+        transform: translate(-40px, 0px) rotate(216deg);
+        opacity: 0.6;
+    }
+    80% {
+        transform: translate(-60px, -40px) rotate(288deg);
+        opacity: 0.4;
+    }
+    100% {
+        transform: translate(60px, 40px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Parçalanma efektleri */
+.fragments {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.fragment {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #FFD700;
+    border-radius: 50%;
+    animation: fragmentFloat 4s ease-in-out infinite;
+    box-shadow: 0 0 4px rgba(255, 215, 0, 0.8);
+}
+
+.fragment-1 {
+    top: 20%;
+    left: 30%;
+    animation-delay: 0s;
+    animation-duration: 3s;
+}
+
+.fragment-2 {
+    top: 60%;
+    left: 70%;
+    animation-delay: 0.5s;
+    animation-duration: 3.5s;
+}
+
+.fragment-3 {
+    top: 80%;
+    left: 20%;
+    animation-delay: 1s;
+    animation-duration: 4s;
+}
+
+.fragment-4 {
+    top: 30%;
+    left: 80%;
+    animation-delay: 1.5s;
+    animation-duration: 2.5s;
+}
+
+@keyframes fragmentFloat {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.6;
+    }
+    25% {
+        transform: translate(5px, -8px) scale(1.2);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(-3px, -12px) scale(0.8);
+        opacity: 0.8;
+    }
+    75% {
+        transform: translate(8px, -5px) scale(1.1);
+        opacity: 0.9;
+    }
+}
+
+/* Gezegen çekim gücü efekti */
+.emblem-circle::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+    animation: gravityPulse 6s ease-in-out infinite;
+    z-index: -1;
+}
+
+@keyframes gravityPulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.3;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.6;
+    }
+}
+
+/* Hover efektleri */
+.logo-emblem:hover .rotating-ring {
+    animation-duration: 4s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+.logo-emblem:hover .rock {
+    animation-duration: 8s;
+    box-shadow: 0 0 10px rgba(255, 107, 53, 1);
+}
+
+.logo-emblem:hover .fragment {
+    animation-duration: 2s;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 1);
+}
+
+/* Mobil uyumluluk */
+@media (max-width: 991px) {
+    .rotating-ring {
+        top: 12px;
+        left: 12px;
+        width: 36px;
+        height: 36px;
+    }
+    
+    .rock {
+        width: 3px;
+        height: 3px;
+    }
+    
+    .fragment {
+        width: 1.5px;
+        height: 1.5px;
+    }
+}
+
+@media (max-width: 768px) {
+    .rotating-ring {
+        top: 10px;
+        left: 10px;
+        width: 30px;
+        height: 30px;
+    }
+    
+    .rock {
+        width: 2px;
+        height: 2px;
+    }
+    
+    .fragment {
+        width: 1px;
+        height: 1px;
+    }
 }

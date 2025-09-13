@@ -42,43 +42,26 @@
     <header>
         <div class="container">
             <div class="logo">
+                <div class="logo-emblem">
+                    <div class="emblem-circle">
+                        <div class="emblem-text">HLL</div>
+                        <div class="emblem-arc"></div>
+                    </div>
+                </div>
                 <h1>HİLAL <span>Teknik</span></h1>
+                <div class="logo-hilal">🌙</div>
             </div>
             <nav>
-                <!-- Üst navigasyon (3 küçük) -->
-                <div class="nav-top" id="navTop">
+                <!-- Sabit navigasyon -->
+                <div class="nav-items">
                     <a href="index.html" class="nav-item" data-page="index">ANASAYFA</a>
                     <a href="hakkimizda.html" class="nav-item" data-page="hakkimizda">HAKKIMIZDA</a>
-                    <a href="iletisim.html" class="nav-item" data-page="iletisim">İLETİŞİM</a>
-                </div>
-                
-                <!-- Alt navigasyon (1 büyük) -->
-                <div class="nav-bottom" id="navBottom">
-                    <a href="galeri.html" class="nav-item nav-item--large active" data-page="galeri">GALERİ</a>
+                    <a href="galeri.html" class="nav-item active" data-page="galeri">GALERİ</a>
+                    <a href="iletisim.html" class="nav-item nav-item--large" data-page="iletisim">İLETİŞİM</a>
                 </div>
             </nav>
         </div>
     </header>
-
-    <!-- ==================== STICKY CALL BAR ==================== -->
-    <div class="sticky-call-bar">
-        <div class="radiator-left"></div>
-        <div class="gas-pipe-left"></div>
-        <div class="radiator-right"></div>
-        <div class="gas-pipe-right"></div>
-        <div class="container">
-            <div class="call-actions">
-                <a href="tel:05376074817" class="call-btn call-btn--phone">
-                    <i class="fas fa-phone"></i>
-                    <span>Telefon</span>
-                </a>
-                <a href="https://wa.me/905376074817" class="call-btn call-btn--whatsapp">
-                    <i class="fab fa-whatsapp"></i>
-                    <span>WhatsApp</span>
-                </a>
-            </div>
-        </div>
-    </div>
 
     <main>
     <!-- ==================== GALLERY CONTENT ==================== -->
@@ -472,6 +455,23 @@
             <button class="lightbox-nav lightbox-next" onclick="changeImage(1)">&#10095;</button>
         </div>
     </div>
+
+    <!-- ==================== STICKY CALL BAR ==================== -->
+    <div class="sticky-call-bar">
+        <div class="container">
+            <div class="call-actions">
+                <a href="tel:05376074817" class="call-btn call-btn--phone">
+                    <i class="fas fa-phone"></i>
+                    <span>Telefon</span>
+                </a>
+                <a href="https://wa.me/905376074817" class="call-btn call-btn--whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
     </main>
 
     <!-- ==================== FOOTER ==================== -->
@@ -496,7 +496,7 @@
                     <h3>Sosyal Medya</h3>
                     <div class="social-icons">
                         <a href="https://www.facebook.com/osmantari44" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.instagram.com/osman_tari" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.instagram.com/hilal_teknik_malatya" target="_blank"><i class="fab fa-instagram"></i></a>
                         <a href="https://wa.me/905376074817" target="_blank"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
@@ -509,34 +509,7 @@
 
     <!-- ==================== SCROLL EFFECTS JAVASCRIPT ==================== -->
     <script>
-        // Header scroll hide and sticky bar move to top
-        let lastScrollTop = 0;
-        const header = document.querySelector('header');
-        const stickyBar = document.querySelector('.sticky-call-bar');
-        const scrollThreshold = 50; // Reduced threshold for earlier effect
-
-        window.addEventListener('scroll', function() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            if (scrollTop > scrollThreshold) {
-                // Scrolling down - hide header and move sticky bar to top
-                if (scrollTop > lastScrollTop) {
-                    header.classList.add('header-hidden');
-                    stickyBar.classList.add('bar-top');
-                }
-                // Scrolling up - show header and move sticky bar back
-                else {
-                    header.classList.remove('header-hidden');
-                    stickyBar.classList.remove('bar-top');
-                }
-            } else {
-                // At top - show header and move sticky bar back
-                header.classList.remove('header-hidden');
-                stickyBar.classList.remove('bar-top');
-            }
-            
-            lastScrollTop = scrollTop;
-        });
+        // Scroll efektleri kaldırıldı
 
         // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -700,67 +673,102 @@
             lazyLoadImages();
         }
         
-        // Navigasyon sistemi
-        const navTop = document.getElementById('navTop');
-        const navBottom = document.getElementById('navBottom');
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
         
-        // Tüm navigasyon öğeleri
-        const allNavItems = [
-            { page: 'index', text: 'ANASAYFA', href: 'index.html' },
-            { page: 'hakkimizda', text: 'HAKKIMIZDA', href: 'hakkimizda.html' },
-            { page: 'galeri', text: 'GALERİ', href: 'galeri.html' },
-            { page: 'iletisim', text: 'İLETİŞİM', href: 'iletisim.html' }
-        ];
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
         
-        // Hangi sayfada olduğumuzu belirle
-        function getCurrentPage() {
-            const path = window.location.pathname;
-            if (path.includes('hakkimizda')) return 'hakkimizda';
-            if (path.includes('galeri')) return 'galeri';
-            if (path.includes('iletisim')) return 'iletisim';
-            return 'index';
-        }
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
         
-        // Navigasyon öğelerini yeniden düzenle
-        function updateNavigation() {
-            const currentPage = getCurrentPage();
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenuBtn.contains(e.target) && !navLinks.contains(e.target)) {
+                mobileMenuBtn.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+        
+        // Sabit navigasyon sistemi - aktif sayfa işaretleme
+        function setActiveNavItem() {
+            const currentPage = window.location.pathname;
+            const navItems = document.querySelectorAll('.nav-item');
             
-            // Üst navigasyonu temizle
-            navTop.innerHTML = '';
-            // Alt navigasyonu temizle
-            navBottom.innerHTML = '';
-            
-            // Aktif sayfayı en başa yerleştir, diğerleri ona göre sıralanacak
-            const currentItemIndex = allNavItems.findIndex(item => item.page === currentPage);
-            const reorderedItems = [
-                allNavItems[currentItemIndex], // Aktif sayfa en başta
-                ...allNavItems.slice(0, currentItemIndex), // Önceki öğeler
-                ...allNavItems.slice(currentItemIndex + 1) // Sonraki öğeler
-            ];
-            
-            // Tüm öğeleri üst navigasyona ekle
-            reorderedItems.forEach(item => {
-                const navItem = document.createElement('a');
-                navItem.href = item.href;
-                navItem.className = item.page === currentPage ? 'nav-item active' : 'nav-item';
-                navItem.setAttribute('data-page', item.page);
-                navItem.textContent = item.text;
-                navTop.appendChild(navItem);
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                const href = item.getAttribute('href');
+                
+                if (currentPage.includes('index.html') || currentPage === '/' || currentPage.endsWith('/')) {
+                    if (href === 'index.html') {
+                        item.classList.add('active');
+                    }
+                } else if (currentPage.includes('hakkimizda')) {
+                    if (href === 'hakkimizda.html') {
+                        item.classList.add('active');
+                    }
+                } else if (currentPage.includes('galeri')) {
+                    if (href === 'galeri.html') {
+                        item.classList.add('active');
+                    }
+                } else if (currentPage.includes('iletisim')) {
+                    if (href === 'iletisim.html') {
+                        item.classList.add('active');
+                    }
+                }
             });
         }
         
-        // Sayfa yüklendiğinde çalıştır
-        updateNavigation();
+        // Sayfa yüklendiğinde aktif öğeyi işaretle
+        setActiveNavItem();
+    </script>
+
+    <!-- ==================== YUKARI ÇIKMA BUTONU ==================== -->
+    <button id="scrollToTop" class="scroll-to-top" aria-label="Yukarı çık">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Header scroll hide and sticky bar move to top
+        const header = document.querySelector('header');
+        const stickyCallBar = document.querySelector('.sticky-call-bar');
         
-        // Navigasyon öğelerine tıklandığında
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('nav-item')) {
-                const page = e.target.getAttribute('data-page');
-                if (page) {
-                    // Sayfa yüklendikten sonra navigasyonu güncelle
-                    setTimeout(updateNavigation, 100);
-                }
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 100) {
+                header.classList.add('header-hidden');
+                stickyCallBar.classList.add('bar-top');
+            } else {
+                header.classList.remove('header-hidden');
+                stickyCallBar.classList.remove('bar-top');
             }
+        });
+        
+        // Yukarı çıkma butonu
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+        
+        // Sayfa kaydırıldığında butonu göster/gizle
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('show');
+            } else {
+                scrollToTopBtn.classList.remove('show');
+            }
+        });
+        
+        // Butona tıklandığında yukarı çık
+        scrollToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
     </script>
 </body>

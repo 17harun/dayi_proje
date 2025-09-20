@@ -12,8 +12,8 @@
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
     <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://fonts.googleapis.com https://fonts.googleapis.com;">
-    <meta name="description" content="Hilal Teknik galeri: Malatya'da yapılan kombi kurulum, bakım ve onarım işlerinden örnekler. Sahibi Osman Tari.">
-    <meta name="keywords" content="hilal teknik galeri, malatya kombi işleri, kombi kurulum, osman tari">
+    <meta name="description" content="Hilal Teknik Galeri - Osman Tari: Vaillant, Bosch, Buderus, Viessmann, Ariston kombi kurulum, bakım, onarım işleri. Malatya'da profesyonel kombi servisi çalışmaları.">
+    <meta name="keywords" content="hilal teknik galeri, osman tari işleri, malatya kombi kurulum, vaillant kombi kurulum, bosch kombi kurulum, buderus kombi kurulum, viessmann kombi kurulum, ariston kombi kurulum, kombi bakım işleri, kombi onarım işleri, kombi montaj fotoğrafları, kombi servis galeri, malatya kombi işleri, profesyonel kombi kurulum">
     <meta property="og:locale" content="tr_TR">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Galeri | Hilal Teknik - Malatya">
@@ -22,7 +22,7 @@
     <meta property="og:url" content="https://www.hilalsihhitesisat.com/galeri">
     <meta name="twitter:title" content="Galeri | Hilal Teknik - Malatya">
     <meta name="twitter:description" content="Hilal Teknik galeri: Malatya'da yapılan kombi kurulum, bakım ve onarım işlerinden örnekler. Sahibi Osman Tari.">
-    <title>Galeri | Hilal Teknik - Malatya Kombi İşleri</title>
+    <title>Galeri | Hilal Teknik - Osman Tari | Vaillant Bosch Buderus Kombi İşleri Malatya</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script type="application/ld+json">
@@ -43,13 +43,33 @@
         <div class="container">
             <div class="logo">
                 <div class="logo-emblem">
+                    <!-- Dönen halka -->
+                    <div class="rotating-ring"></div>
+                    
+                    <!-- Küçük kayalar -->
+                    <div class="space-rocks">
+                        <div class="rock rock-1"></div>
+                        <div class="rock rock-2"></div>
+                        <div class="rock rock-3"></div>
+                        <div class="rock rock-4"></div>
+                        <div class="rock rock-5"></div>
+                        <div class="rock rock-6"></div>
+                    </div>
+                    
+                    <!-- Ana amblem -->
                     <div class="emblem-circle">
                         <div class="emblem-text">HLL</div>
                         <div class="emblem-arc"></div>
+                        <!-- Parçalanma efektleri -->
+                        <div class="fragments">
+                            <div class="fragment fragment-1"></div>
+                            <div class="fragment fragment-2"></div>
+                            <div class="fragment fragment-3"></div>
+                            <div class="fragment fragment-4"></div>
+                        </div>
                     </div>
                 </div>
                 <h1>HİLAL <span>Teknik</span></h1>
-                <div class="logo-hilal">🌙</div>
             </div>
             <nav>
                 <!-- Sabit navigasyon -->
@@ -62,6 +82,22 @@
             </nav>
         </div>
     </header>
+
+    <!-- ==================== CONTACT ACTION BAR ==================== -->
+    <section class="contact-action-bar">
+        <div class="container">
+            <div class="contact-actions">
+                <a href="tel:05376074817" class="action-btn action-btn--phone">
+                    <i class="fas fa-phone"></i>
+                    <span>Telefon</span>
+                </a>
+                <a href="https://wa.me/905376074817" class="action-btn action-btn--whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </a>
+            </div>
+        </div>
+    </section>
 
     <main>
     <!-- ==================== GALLERY CONTENT ==================== -->
@@ -456,24 +492,8 @@
         </div>
     </div>
 
-    <!-- ==================== STICKY CALL BAR ==================== -->
-    <div class="sticky-call-bar">
-        <div class="container">
-            <div class="call-actions">
-                <a href="tel:05376074817" class="call-btn call-btn--phone">
-                    <i class="fas fa-phone"></i>
-                    <span>Telefon</span>
-                </a>
-                <a href="https://wa.me/905376074817" class="call-btn call-btn--whatsapp">
-                    <i class="fab fa-whatsapp"></i>
-                    <span>WhatsApp</span>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    </main>
-
+   
+ 
     <!-- ==================== FOOTER ==================== -->
     <footer>
         <div class="container">
@@ -509,7 +529,32 @@
 
     <!-- ==================== SCROLL EFFECTS JAVASCRIPT ==================== -->
     <script>
-        // Scroll efektleri kaldırıldı
+        // Contact action bar scroll behavior
+        let lastScrollTop = 0;
+        const contactActionBar = document.querySelector('.contact-action-bar');
+
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Scrolling down - move contact action bar to top
+            if (scrollTop > lastScrollTop && scrollTop > 80) {
+                contactActionBar.classList.add('action-bar-top');
+            }
+            // Scrolling up - keep bar at top until reaching original position
+            else if (scrollTop < lastScrollTop) {
+                // Only move bar back when reaching original position (108px)
+                if (scrollTop <= 108) {
+                    contactActionBar.classList.remove('action-bar-top');
+                }
+                // Above 108px, keep bar at top during upward scroll
+            }
+            // At very top - always show bar in original position
+            else if (scrollTop <= 80) {
+                contactActionBar.classList.remove('action-bar-top');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
 
         // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {

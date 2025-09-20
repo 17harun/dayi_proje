@@ -1881,7 +1881,7 @@ footer {
 /* ==================== CONTACT ACTION BAR ==================== */
 .contact-action-bar {
     position: fixed;
-    top: 108px;
+    top: 128px;
     left: 0;
     right: 0;
     width: 80%;
@@ -2831,6 +2831,7 @@ footer {
     .contact-action-bar {
         width: 85%;
         max-width: 500px;
+        top: 108px;
         clip-path: polygon(8% 0%, 92% 0%, 87% 100%, 13% 100%);
     }
     

@@ -402,11 +402,12 @@
             }
             // Scrolling up - keep bar at top until reaching original position
             else if (scrollTop < lastScrollTop) {
-                // Only move bar back when reaching original position (108px)
-                if (scrollTop <= 108) {
+                // Only move bar back when reaching original position (128px desktop, 108px mobile)
+                const threshold = window.innerWidth <= 768 ? 108 : 128;
+                if (scrollTop <= threshold) {
                     contactActionBar.classList.remove('action-bar-top');
                 }
-                // Above 108px, keep bar at top during upward scroll
+                // Above threshold, keep bar at top during upward scroll
             }
             // At very top - always show bar in original position
             else if (scrollTop <= 80) {
